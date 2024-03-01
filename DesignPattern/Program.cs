@@ -15,9 +15,25 @@ namespace DesignPattern
 			var productFilter = new ProductFilter();
 
 			Console.WriteLine("Green Products");
-			foreach (var product in productFilter.FilterByColor(products , Color.Green))
+			foreach (var product in productFilter.Filter
+	         (
+		         products , 
+				 new ColorSpecification(Color.Green)))
 			{
 				Console.WriteLine($" - {product.Name} is Green");
+			}
+
+			Console.WriteLine("\nGreen and Large Products");
+			foreach (var product in productFilter.Filter
+			(
+		         products,
+		         new AndSpecification<Product>
+		         (
+			         new ColorSpecification(Color.Green) ,
+			         new SizeSpecification(Size.Large)
+			     )))
+			{
+				Console.WriteLine($" - {product.Name} is Green and Large");
 			}
 		}
 	}
