@@ -22,9 +22,13 @@ public class Journal
 		entriesList.RemoveAt(index);
 	}
 
-	public void Save(string filename)
+}
+
+public class Persistance
+{
+	public void SaveToFile(Journal j , string filename)
 	{
-		// Save Entires To File
+		// Save Entires of particual Journal To File
 	}
 
 	public static Journal Load(string filename)
@@ -37,7 +41,5 @@ public class Journal
 	{
 		// Load Journal From URI
 	}
-
-
-
 }
+
