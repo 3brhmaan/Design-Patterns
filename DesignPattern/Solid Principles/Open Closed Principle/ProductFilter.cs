@@ -2,7 +2,7 @@
 
 public class ProductFilter
 {
-	public static IEnumerable<Product> FilterBySize(
+	public IEnumerable<Product> FilterBySize(
 		IEnumerable<Product> products ,
 		Size size)
 	{
@@ -12,7 +12,7 @@ public class ProductFilter
 				yield return product;
 		}
 	}
-	public static IEnumerable<Product> FilterByColor(
+	public IEnumerable<Product> FilterByColor(
 		IEnumerable<Product> products,
 		Color color)
 	{
@@ -23,7 +23,7 @@ public class ProductFilter
 		}
 	}
 
-	public static IEnumerable<Product> FilterBySizeAndColor(
+	public IEnumerable<Product> FilterBySizeAndColor(
 		IEnumerable<Product> products,
 		Color color ,
 		Size size)
