@@ -2,7 +2,7 @@
 
 public class Squre : Rectangle
 {
-	public new int Width
+	public override int Width
 	{
 		set
 		{
@@ -10,7 +10,7 @@ public class Squre : Rectangle
 		}
 	}
 
-	public new int Height
+	public override int Height
 	{
 		set
 		{

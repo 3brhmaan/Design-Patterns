@@ -8,8 +8,8 @@ namespace DesignPattern.Solid_Principles.Liskov_substitution
 {
 	public class Rectangle
 	{
-		public int  Width { get; set; }
-		public int Height { get; set; }
+		public virtual int Width { get; set; }
+		public virtual int Height { get; set; }
 		public Rectangle() { }
 		public Rectangle(int width, int height)
 		{
