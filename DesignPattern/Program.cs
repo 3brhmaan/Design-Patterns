@@ -1,40 +1,24 @@
 ﻿using DesignPattern.Solid_Principles.Open_Closed_Principle;
 using System;
+using DesignPattern.Solid_Principles.Liskov_substitution;
 
 namespace DesignPattern
 {
 	internal class Program
 	{
+		static int Area(Rectangle r) => r.Height * r.Width;
 		static void Main(string[] args)
 		{
-			var apple = new Product(Color.Green, Size.Small, "Apple");
-			var tree = new Product(Color.Green, Size.Large, "Tree");
-			var house = new Product(Color.Blue, Size.Large, "House");
+			Squre sq = new Squre();
+			sq.Width = 4;
+			Console.WriteLine(Area(sq));
 
-			Product[] products = { apple, tree, house };
-			var productFilter = new ProductFilter();
+			Rectangle rec = new Squre();
+			rec.Width = 4;
+			Console.WriteLine(Area(rec));
 
-			Console.WriteLine("Green Products");
-			foreach (var product in productFilter.Filter
-	         (
-		         products , 
-				 new ColorSpecification(Color.Green)))
-			{
-				Console.WriteLine($" - {product.Name} is Green");
-			}
 
-			Console.WriteLine("\nGreen and Large Products");
-			foreach (var product in productFilter.Filter
-			(
-		         products,
-		         new AndSpecification<Product>
-		         (
-			         new ColorSpecification(Color.Green) ,
-			         new SizeSpecification(Size.Large)
-			     )))
-			{
-				Console.WriteLine($" - {product.Name} is Green and Large");
-			}
+
 		}
 	}
 }
