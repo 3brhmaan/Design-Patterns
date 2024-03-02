@@ -2,18 +2,12 @@
 
 namespace DesignPattern.Solid_Principles.Interface_Segregation;
 
-public class OldPrinter : IMachine
+public class OldPrinter : IPrinter , IFaxer
 {
 	public void Print(Document d)
 	{
 		//
 	}
-
-	public void Scan(Document d)
-	{
-		//
-	}
-
 	public void Fax(Document d)
 	{
 		//
