@@ -17,10 +17,11 @@ public class HTMLBuilder
         root.Name = rootName;
     }
 
-    public void AddChild(string childName, string childText)
+    public HTMLBuilder AddChild(string childName, string childText)
     {
         HTMLelement element = new HTMLelement(childName , childText);
         root.Elements.Add(element);
+        return this;
     }
 
     public override string ToString()
