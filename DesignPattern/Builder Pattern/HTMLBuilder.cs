@@ -4,20 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPattern.Builder_Pattern
+namespace DesignPattern.Builder_Pattern;
+
+public class HTMLBuilder
 {
-    public class HTMLBuilder
+    private readonly string _rootName;
+    private HTMLelement root = new();
+
+    public HTMLBuilder(string rootName)
     {
-        StringBuilder builder = new StringBuilder();
+        _rootName = rootName;
+        root.Name = rootName;
+    }
 
-        public void Append(string text)
-        {
-            builder.Append(text);
-        }
+    public void AddChild(string childName, string childText)
+    {
+        HTMLelement element = new HTMLelement(childName , childText);
+        root.Elements.Add(element);
+    }
 
-        public override string ToString()
-        {
-            return builder.ToString();
-        }
+    public override string ToString()
+    {
+        return root.ToString();
+    }
+
+    public void Clear()
+    {
+        root = new HTMLelement(){Name = _rootName};
     }
 }

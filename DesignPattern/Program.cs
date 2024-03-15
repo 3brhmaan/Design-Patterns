@@ -10,18 +10,11 @@ namespace DesignPattern
 	{ 
 		static void Main(string[] args)
         {
-            HTMLBuilder builder = new HTMLBuilder();
-            var words = new[] { "hello", "world" };
-            
-            builder.Append("<ul>");
-            foreach (var word in words)
-            {
-                builder.Append("\n<li>");
-                builder.Append(word);
-                builder.Append("</li>");
-            }
-            builder.Append("\n");
-            builder.Append("</ul>");
+            HTMLBuilder builder = new HTMLBuilder("ul");
+            builder.AddChild("li" , "hello");
+            builder.AddChild("li" , "world");
+
+            Console.WriteLine(builder);
 
 
         }
