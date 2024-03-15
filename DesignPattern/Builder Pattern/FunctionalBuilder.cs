@@ -16,33 +16,38 @@ public class Person
     }
 }
 
-public sealed class PersonBuilder
+public abstract class FunctionalBuilder<TSubject , TSelf>
+    where TSelf : FunctionalBuilder<TSubject , TSelf>
+    where TSubject : class , new()
 {
     private readonly List<Func<Person, Person>> actions = new();
 
-    public PersonBuilder Called(string name)
-    {
-        return Do(p => p.Name = name);
-    }
-
-    public PersonBuilder Do(Action<Person> action)
+    public TSelf Do(Action<Person> action)
     {
         return AddAction(action);
     }
 
-    public Person Build()
+    public TSubject Build()
     {
-        return actions.Aggregate(new Person(), (p, f) => f(p));
+        return actions.Aggregate(new Person(), (p, f) => f(p)) as TSubject;
     }
 
-    private PersonBuilder AddAction(Action<Person> action)
+    private TSelf AddAction(Action<Person> action)
     {
         actions.Add(p =>
         {
             action(p);
             return p;
         });
-        return this;
+        return (TSelf)this;
+    }
+}
+
+public sealed class PersonBuilder : FunctionalBuilder<Person , PersonBuilder>
+{
+    public PersonBuilder Called(string name)
+    {
+        return Do(p => p.Name = name);
     }
 }
 
