@@ -1,5 +1,5 @@
 ﻿using System;
-using DesignPattern.Builder_Pattern.Fluent_Builder_inheritance_with_recursive_generics;
+using DesignPattern.Builder_Pattern;
 
 namespace DesignPattern;
 
@@ -7,11 +7,12 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var me = Person.New
-            .Called("Ahmed")
-            .WorksAsA("Engineer")
+        var person = new PersonBuilder()
+            .Called("ahmed")
+            .WorksAs("Developer")
             .Build();
 
-        Console.WriteLine(me);
+        Console.WriteLine(person);
+
     }
 }
