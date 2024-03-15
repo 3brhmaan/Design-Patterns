@@ -1,22 +1,17 @@
-﻿using DesignPattern.Solid_Principles.Open_Closed_Principle;
-using System;
-using System.Text;
-using DesignPattern.Builder_Pattern;
-using DesignPattern.Solid_Principles.Liskov_substitution;
+﻿using System;
+using DesignPattern.Builder_Pattern.Fluent_Builder_inheritance_with_recursive_generics;
 
-namespace DesignPattern
+namespace DesignPattern;
+
+internal class Program
 {
-	internal class Program
-	{ 
-		static void Main(string[] args)
-        {
-            HTMLBuilder builder = new HTMLBuilder("ul");
-            builder.AddChild("li" , "hello")
-                   .AddChild("li" , "world");
+    private static void Main(string[] args)
+    {
+        var me = Person.New
+            .Called("Ahmed")
+            .WorksAsA("Engineer")
+            .Build();
 
-            Console.WriteLine(builder);
-
-
-        }
+        Console.WriteLine(me);
     }
 }
