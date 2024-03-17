@@ -1,7 +1,9 @@
 ﻿using System;
-using DesignPattern.Builder_Pattern.facadeBuilder;
+using DesignPattern.Factories_Pattern.FactoryMethod;
 
 namespace DesignPattern;
+
+
 
 
 
@@ -10,14 +12,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var pb = new PersonBuilder();
-        var person = pb
-            .Lives.At("Meethadid")
-                  .In("Mansourah")
-                  .WithPostCode("123")
-            .Works.At("Amazon")
-                  .AsA("Lawyer")
-                  .Earning(150000);
-
+        Point cartesianPoint = Point.NewCartesianPoint(10, 11);
+        Point polarPoint = Point.NewPolarPoint(2.5, Math.PI / 2);
     }
 }
