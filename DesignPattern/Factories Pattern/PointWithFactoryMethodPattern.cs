@@ -12,7 +12,6 @@ public class Point
 {
     private double x, y;
 
-    // private
     private Point(double x, double y)
     {
         this.x = x;
