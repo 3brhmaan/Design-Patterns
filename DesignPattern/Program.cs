@@ -1,5 +1,5 @@
 ﻿using System;
-using DesignPattern.Prototype_Pattern.ICloneableApproach;
+using DesignPattern.Prototype_Pattern.CopyConstructorApproach;
 
 namespace DesignPattern;
 
@@ -11,7 +11,7 @@ internal class Program
         var john = new Person(new[] { "john", "switch" },
             new Address("Meet Hadid", 123));
 
-        var jane = john.Clone() as Person;
+        var jane = new Person(john);
         jane.Names[0] = "Jane";
 
         Console.WriteLine(john);
