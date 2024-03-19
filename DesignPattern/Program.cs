@@ -1,9 +1,7 @@
 ﻿using System;
-using DesignPattern.Prototype_Pattern.ExplicitDeepCopyInterface;
+using DesignPattern.Prototype_Pattern.PrototypeInheritanceV1;
 
 namespace DesignPattern;
-
-
 
 
 
@@ -11,13 +9,13 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var john = new Person(new[] { "john", "switch" },
-            new Address("Meet Hadid", 123));
+        var john = new Employee(new string[] { "john", "switch" } ,
+            new Address("Meet Hadid", 123) ,3000);
 
-        var jane = john.DeepCopy();
-        jane.Names[0] = "Jane";
+        var copy = john.DeepCopy();
+        copy.Names[0] = "ahmed";
 
         Console.WriteLine(john);
-        Console.WriteLine(jane);
+        Console.WriteLine(copy);
     }
 }
