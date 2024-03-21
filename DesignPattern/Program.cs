@@ -1,5 +1,5 @@
 ﻿using System;
-using DesignPattern.Singleton_Pattern.SingletonPattern;
+using DesignPattern.Singleton_Pattern.SingletonPatternWithLazyLoading;
 
 namespace DesignPattern;
 
