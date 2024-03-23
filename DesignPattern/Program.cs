@@ -1,24 +1,37 @@
 ﻿using System;
-using DesignPattern.Singleton_Pattern;
+using DesignPattern.Adapter_Pattern.VectorRaster;
 
 
 namespace DesignPattern;
 
+
+
 internal class Program
 {
+    private static readonly List<VectorObject> vectorObjects
+        = new()
+        {
+            new VectorRectangle(1, 1, 10, 10),
+            new VectorRectangle(3, 3, 6, 6)
+        };
+
+    public static void DrawPoint(Point p)
+    {
+        Console.WriteLine(".");
+    }
+
+    private static void Draw()
+    {
+        foreach (var vo in vectorObjects)
+        foreach (var line in vo)
+        {
+            var pointsAdapter = new LineToPointAdapter(line);
+            foreach (var point in pointsAdapter) DrawPoint(point);
+        }
+    }
+
     private static void Main(string[] args)
     {
-        var t1 = Task.Factory.StartNew(() =>
-        {
-            Console.WriteLine($"T1: {PerThreadSingleton.Instance.id}");
-        });
-
-        var t2 = Task.Factory.StartNew(() =>
-        {
-            Console.WriteLine($"T2: {PerThreadSingleton.Instance.id}");
-            Console.WriteLine($"T2: {PerThreadSingleton.Instance.id}");
-        });
-
-        Task.WaitAll(t1, t2);
+        Draw();
     }
 }
