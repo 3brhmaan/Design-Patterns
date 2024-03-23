@@ -1,5 +1,5 @@
 ﻿using System;
-using DesignPattern.Singleton_Pattern.MonostatePattern;
+using DesignPattern.Singleton_Pattern;
 
 
 namespace DesignPattern;
@@ -8,11 +8,17 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var ceo1 = new CEO();
-        ceo1.Name = "Adam";
-        ceo1.Age = 25;
+        var t1 = Task.Factory.StartNew(() =>
+        {
+            Console.WriteLine($"T1: {PerThreadSingleton.Instance.id}");
+        });
 
-        var ceo2 = new CEO();
-        Console.WriteLine(ceo2);
+        var t2 = Task.Factory.StartNew(() =>
+        {
+            Console.WriteLine($"T2: {PerThreadSingleton.Instance.id}");
+            Console.WriteLine($"T2: {PerThreadSingleton.Instance.id}");
+        });
+
+        Task.WaitAll(t1, t2);
     }
 }
