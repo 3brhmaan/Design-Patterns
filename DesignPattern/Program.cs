@@ -17,16 +17,19 @@ internal class Program
 
     public static void DrawPoint(Point p)
     {
-        Console.WriteLine(".");
+        Console.Write(".");
     }
 
     private static void Draw()
     {
         foreach (var vo in vectorObjects)
-        foreach (var line in vo)
         {
-            var pointsAdapter = new LineToPointAdapter(line);
-            foreach (var point in pointsAdapter) DrawPoint(point);
+            foreach (var line in vo)
+            {
+                var pointsAdapter = new LineToPointAdapter(line);
+                foreach (var point in pointsAdapter) 
+                    DrawPoint(point);
+            }
         }
     }
 

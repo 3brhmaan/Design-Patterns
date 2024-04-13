@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,11 @@ namespace DesignPattern.Adapter_Pattern.VectorRaster
             X = x;
             Y = y;
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
     }
 
     public class Line
@@ -26,6 +33,10 @@ namespace DesignPattern.Adapter_Pattern.VectorRaster
         {
             Start = start;
             End = end;
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Start.GetHashCode(), End.GetHashCode());
         }
     }
 
@@ -44,15 +55,23 @@ namespace DesignPattern.Adapter_Pattern.VectorRaster
         }
     }
 
-    public class LineToPointAdapter : Collection<Point>
+
+    public class LineToPointAdapter : IEnumerable<Point>
     {
         private static int count;
+        static Dictionary<int, List<Point>> cach = new();
 
         public LineToPointAdapter(Line line)
         {
+            var hashCode = line.GetHashCode();
+            if(cach.ContainsKey(hashCode))
+                return;
+
             Console.WriteLine(
                 $"{++count}: Generating Points for line [{line.Start.X},{line.Start.Y}]-[{line.End.X},{line.End.Y}]"
             );
+
+            var points = new List<Point>();
 
             var left = Math.Min(line.Start.X, line.End.X);
             var right = Math.Max(line.Start.X, line.End.X);
@@ -63,10 +82,24 @@ namespace DesignPattern.Adapter_Pattern.VectorRaster
 
             if (dx == 0)
                 for (var y = top; y <= bottom; ++y)
-                    Add(new Point(left, y));
+                    points.Add(new Point(left, y));
             else if (dy == 0)
                 for (var x = left; x <= right; ++x)
-                    Add(new Point(x, top));
+                    points.Add(new Point(x, top));
+
+           cach.Add(hashCode, points);
+        }
+
+        public IEnumerator<Point> GetEnumerator() 
+        {
+           return cach.Values
+                .SelectMany(x => x)
+                .GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
