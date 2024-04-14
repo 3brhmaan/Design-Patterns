@@ -28,9 +28,14 @@ namespace DesignPattern.Adapter_Pattern
         public class Vector<T, D> where D : IInteger, new()
         {
             protected T[] data;
-            public Vector(params T[] data)
+            public Vector(params T[] values)
             {
-                this.data = data;
+                var requiredSize = new D().Value;
+                data = new T[requiredSize];
+
+                var providedSize = values.Length;
+                for(int i = 0; i<Math.Min(providedSize , requiredSize); i++)
+                    data[i] = values[i];
             }
             public Vector()
             {
@@ -43,9 +48,38 @@ namespace DesignPattern.Adapter_Pattern
             }
         }
 
-        public class Vector2i : Vector<int, Dimensions.Two>
+        public class VectorOfInt<D> : Vector<int, D>
+            where D : IInteger, new()
         {
+            public VectorOfInt()
+            {
+            }
+            public VectorOfInt(params int[] values) : base(values)
+            {
+            }
 
+            public static VectorOfInt<D> operator+ 
+                (VectorOfInt<D>lhs , VectorOfInt<D> rhs)
+            {
+                var result = new VectorOfInt<D>();
+                for(int i = 0; i< new D().Value; i++)
+                {
+                    result[i] = lhs[i] + rhs[i];
+                }
+
+                return result;
+            }
+        }
+
+        public class Vector2i : VectorOfInt<Dimensions.Two>
+        {
+            public Vector2i()
+            {
+            }
+            public Vector2i(params int[] values) : base(values)
+            {
+            }
         }
     }
 }
+
