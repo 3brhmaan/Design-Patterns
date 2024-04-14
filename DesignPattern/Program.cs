@@ -14,7 +14,9 @@ internal class Program
         var vv = new Vector2i(3, 2);
 
         var res = v + vv;
-        Console.WriteLine(res[0]);
+
+        var tmp = Vector3f.Create(1.5f, 5.3f, 2.4f);
+        Console.WriteLine(tmp);
     }
 }
 

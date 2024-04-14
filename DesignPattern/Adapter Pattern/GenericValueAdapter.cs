@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DesignPattern.Adapter_Pattern.GenericValueAdapter;
 
 namespace DesignPattern.Adapter_Pattern
 {
@@ -25,7 +26,9 @@ namespace DesignPattern.Adapter_Pattern
             }
         }
 
-        public class Vector<T, D> where D : IInteger, new()
+        public class Vector<TSelf , T, D> 
+            where D : IInteger, new()
+            where TSelf : Vector<TSelf , T , D> , new()
         {
             protected T[] data;
             public Vector(params T[] values)
@@ -46,10 +49,17 @@ namespace DesignPattern.Adapter_Pattern
                 get => data[index];
                 set => data[index] = value;
             }
+            public static TSelf Create(params T[] values)
+            {
+                var result =  new TSelf();
+                result.data = values;
+                return result;
+            }
         }
 
-        public class VectorOfInt<D> : Vector<int, D>
+        public class VectorOfInt<TSelf , D> : Vector<TSelf, int, D>
             where D : IInteger, new()
+            where TSelf : Vector<TSelf, int , D>, new()
         {
             public VectorOfInt()
             {
@@ -58,10 +68,10 @@ namespace DesignPattern.Adapter_Pattern
             {
             }
 
-            public static VectorOfInt<D> operator+ 
-                (VectorOfInt<D>lhs , VectorOfInt<D> rhs)
+            public static VectorOfInt<TSelf, D> operator + 
+                (VectorOfInt<TSelf, D> lhs , VectorOfInt<TSelf, D> rhs)
             {
-                var result = new VectorOfInt<D>();
+                var result = new VectorOfInt<TSelf, D>();
                 for(int i = 0; i< new D().Value; i++)
                 {
                     result[i] = lhs[i] + rhs[i];
@@ -71,7 +81,14 @@ namespace DesignPattern.Adapter_Pattern
             }
         }
 
-        public class Vector2i : VectorOfInt<Dimensions.Two>
+        public class VectorOfFloat<TSelf, D> : Vector<TSelf, float, D>
+            where D : IInteger, new()
+            where TSelf : Vector<TSelf, float , D>, new()
+        {
+
+        }
+
+        public class Vector2i : VectorOfInt<Vector2i , Dimensions.Two>
         {
             public Vector2i()
             {
@@ -80,6 +97,13 @@ namespace DesignPattern.Adapter_Pattern
             {
             }
         }
+
+        public class Vector3f : VectorOfFloat<Vector3f , Dimensions.Three>
+        {
+            public override string ToString()
+            {
+                return $"{string.Join("," , data)}";
+            }
+        }
     }
 }
-
