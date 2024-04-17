@@ -8,14 +8,13 @@ using DesignPattern.Decorator_Pattern;
 namespace DesignPattern;
 
 
+
 internal class Program
 {
     private static void Main(string[] args)
     {
-        CodeBuilder builder = "Hello";
-
-        builder += " World";
-
-        Console.WriteLine(builder);
+        var dragon = new Dragon();
+        dragon.Fly();
+        dragon.Crawl();
     }
 }
