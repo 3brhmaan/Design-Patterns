@@ -16,6 +16,19 @@ public class CodeBuilder
         ((ISerializable)builder).GetObjectData(info, context);
     }
 
+    public static implicit operator CodeBuilder(string str)
+    {
+        CodeBuilder cb = new CodeBuilder();
+        cb.Append(str);
+        return cb;
+    }
+
+    public static CodeBuilder operator +(CodeBuilder cb, string str)
+    {
+        cb.Append(str);
+        return cb;
+    }
+
     public CodeBuilder Append(bool value)
     {
         builder.Append(value);

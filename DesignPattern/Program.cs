@@ -12,10 +12,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        CodeBuilder builder = new();
+        CodeBuilder builder = "Hello";
 
-        builder.Append("SS")
-            .AppendLine("GG");
+        builder += " World";
 
         Console.WriteLine(builder);
     }
